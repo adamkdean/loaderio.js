@@ -1,0 +1,16 @@
+{
+  "name": "loaderio",
+  "version": "0.0.1",
+  "description": "Node JS loader.io library",
+  "main": "src/loaderio.js",
+  "keywords": [
+    "loaderio"
+  ],
+  "author": "Adam K Dean",
+  "license": "The MIT License",
+  "repository":
+  {
+    "type": "git",
+    "url": "http://github.com/Imdsm/loaderio.js.git"
+  }
+}
