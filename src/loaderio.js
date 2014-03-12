@@ -26,6 +26,8 @@
 
 var request = require('request');
 
+var API_URL = 'https://api.loader.io';
+
 function LoaderIO() { }
 
 LoaderIO.prototype.setApiKey = function(apiKey) {
@@ -35,5 +37,29 @@ LoaderIO.prototype.setApiKey = function(apiKey) {
 LoaderIO.prototype.getApiKey = function() {
     return this.apiKey;
 }
+
+LoaderIO.prototype.getServers = function(callback) {
+    request(API_URL + '/v2/servers', function(error, response, body) {
+        if (!error && response.statusCode == 200) {
+            callback(null, JSON.parse(body));
+        } else {
+            callback(error, {});
+        }
+    });
+}
+
+LoaderIO.prototype.getTests = function(callback) {
+    request(API_URL + '/v2/tests', function(error, response, body) {
+        if (!error && response.statusCode == 200) {
+            callback(null, JSON.parse(body));
+        } else {
+            callback(error, {});
+        }
+    });
+}
+
+
+
+
 
 module.exports = new LoaderIO();
