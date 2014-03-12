@@ -11,9 +11,11 @@
   "scripts": {
     "start": "node src/loaderio.js"
   },
-  "repository":
-  {
+  "repository": {
     "type": "git",
     "url": "http://github.com/Imdsm/loaderio.js.git"
+  },
+  "dependencies": {
+    "request": "~2.34.0"
   }
 }
