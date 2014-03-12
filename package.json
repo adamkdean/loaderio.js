@@ -10,7 +10,7 @@
   "main": "src/loaderio.js",
   "scripts": {
     "start": "node src/loaderio.js",
-    "test": "mocha test/test.js"
+    "test": "node test/test.js"
   },
   "repository": {
     "type": "git",

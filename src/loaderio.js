@@ -26,9 +26,9 @@
 
 var request = require('request');
 
-var API_URL = 'https://api.loader.io';
-
-function LoaderIO() { }
+function LoaderIO() {
+    this.apiUrl = 'https://api.loader.io';
+}
 
 LoaderIO.prototype.setApiKey = function(apiKey) {
     this.apiKey = apiKey;
@@ -38,28 +38,32 @@ LoaderIO.prototype.getApiKey = function() {
     return this.apiKey;
 }
 
-LoaderIO.prototype.getServers = function(callback) {
-    request(API_URL + '/v2/servers', function(error, response, body) {
-        if (!error && response.statusCode == 200) {
-            callback(null, JSON.parse(body));
-        } else {
-            callback(error, {});
+LoaderIO.prototype.performApiRequest = function(uri, callback) {
+    request(
+        {
+            url: this.apiUrl + uri,
+            headers: { 'loaderio-auth': this.apiKey }
+        },
+        function(error, response, body) {
+            if (!error && response.statusCode == 200) {
+                callback(null, JSON.parse(body));
+            } else {
+                callback(error, {});
+            }
         }
-    });
+    );
+}
+
+LoaderIO.prototype.getServers = function(callback) {
+    this.performApiRequest('/v2/servers', callback);
 }
 
 LoaderIO.prototype.getTests = function(callback) {
-    request(API_URL + '/v2/tests', function(error, response, body) {
-        if (!error && response.statusCode == 200) {
-            callback(null, JSON.parse(body));
-        } else {
-            callback(error, {});
-        }
-    });
+    this.performApiRequest('/v2/tests', callback);
 }
 
-
-
-
+LoaderIO.prototype.getTestById = function(id, callback) {
+    this.performApiRequest('/v2/tests' + id, callback);
+}
 
 module.exports = new LoaderIO();
