@@ -1,8 +1,8 @@
 var loaderio = require('../src/loaderio');
 
 
-loaderio.setApiKey(' ');
+loaderio.setApiKey('');
 
-loaderio.getServers(function(error, response) {
+loaderio.getTests(function(error, response) {
     console.log(error, response);
 });
