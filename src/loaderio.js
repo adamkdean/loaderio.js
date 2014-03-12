@@ -36,4 +36,4 @@ LoaderIO.prototype.getApiKey = function() {
     return this.apiKey;
 }
 
-exports = new LoaderIO();
+module.exports = new LoaderIO();
