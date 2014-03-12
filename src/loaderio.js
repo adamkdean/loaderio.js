@@ -24,4 +24,16 @@
     THE SOFTWARE.
 */
 
-console.log('test');
+var request = require('request');
+
+function LoaderIO() { }
+
+LoaderIO.prototype.setApiKey = function(apiKey) {
+    this.apiKey = apiKey;
+}
+
+LoaderIO.prototype.getApiKey = function() {
+    return this.apiKey;
+}
+
+exports = new LoaderIO();
