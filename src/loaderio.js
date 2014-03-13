@@ -52,6 +52,9 @@ LoaderIO.prototype.performApiRequest = function(uri, callback, method, body) {
 
     request(options, function(error, response, body) {
         if (!error && response.statusCode == 200) {
+            if (response.body && typeof response.body === 'string') {
+                response.body = JSON.parse(response.body);
+            }
             callback(null, response.body);
         } else {
             callback(error, response.body);
