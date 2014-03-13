@@ -66,4 +66,8 @@ LoaderIO.prototype.getTestById = function(id, callback) {
     this.performApiRequest('/v2/tests' + id, callback);
 }
 
+LoaderIO.prototype.getApps = function(callback) {
+    this.performApiRequest('/v2/apps', callback);
+}
+
 module.exports = new LoaderIO();
