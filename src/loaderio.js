@@ -49,7 +49,7 @@ LoaderIO.prototype.performApiRequest = function(uri, callback, method) {
             if (!error && response.statusCode == 200) {
                 callback(null, JSON.parse(body));
             } else {
-                callback(error, {});
+                callback(error, null);
             }
         }
     );
@@ -69,6 +69,10 @@ LoaderIO.prototype.getTestById = function(test_id, callback) {
 
 LoaderIO.prototype.runTestById = function(test_id, callback) {
     this.performApiRequest('/v2/tests/' + test_id + '/run', callback, 'PUT');
+}
+
+LoaderIO.prototype.stopTestById = function(test_id, callback) {
+    this.performApiRequest('/v2/tests/' + test_id + '/stop', callback, 'PUT');
 }
 
 LoaderIO.prototype.getApps = function(callback) {

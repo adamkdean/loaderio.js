@@ -13,7 +13,6 @@ Applications
 
 Tests
 - POST /v2/tests
-- PUT /v2/tests/{test_id}/run
 - PUT /v2/tests/{test_id}/stop
 
 Results
