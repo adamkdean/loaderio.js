@@ -38,9 +38,10 @@ LoaderIO.prototype.getApiKey = function() {
     return this.apiKey;
 }
 
-LoaderIO.prototype.performApiRequest = function(uri, callback) {
+LoaderIO.prototype.performApiRequest = function(uri, callback, method) {
     request(
         {
+            method: method || 'GET',
             url: this.apiUrl + uri,
             headers: { 'loaderio-auth': this.apiKey }
         },
@@ -64,6 +65,10 @@ LoaderIO.prototype.getTests = function(callback) {
 
 LoaderIO.prototype.getTestById = function(test_id, callback) {
     this.performApiRequest('/v2/tests/' + test_id, callback);
+}
+
+LoaderIO.prototype.runTestById = function(test_id, callback) {
+    this.performApiRequest('/v2/tests/' + test_id + '/run', callback, 'PUT');
 }
 
 LoaderIO.prototype.getApps = function(callback) {

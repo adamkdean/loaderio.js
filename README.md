@@ -6,7 +6,6 @@ Node JS loader.io library. Currently under development.
 # TODO LIST
 
 Applications
-- GET /v2/apps
 - POST /v2/apps
 - GET /v2/apps/{app_id}
 - POST /v2/apps/{app_id}/verify
