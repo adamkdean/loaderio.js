@@ -25,6 +25,7 @@
 */
 
 var request = require('request');
+var _ = require('underscore');
 
 function LoaderIO() {
     this.apiUrl = 'https://api.loader.io';
@@ -38,21 +39,25 @@ LoaderIO.prototype.getApiKey = function() {
     return this.apiKey;
 }
 
-LoaderIO.prototype.performApiRequest = function(uri, callback, method) {
-    request(
-        {
-            method: method || 'GET',
-            url: this.apiUrl + uri,
-            headers: { 'loaderio-auth': this.apiKey }
-        },
-        function(error, response, body) {
-            if (!error && response.statusCode == 200) {
-                callback(null, JSON.parse(body));
-            } else {
-                callback(error, null);
-            }
+LoaderIO.prototype.performApiRequest = function(uri, callback, method, body) {
+    var options = {
+        method: method || 'GET',
+        url: this.apiUrl + uri,
+        headers: { 'loaderio-auth': this.apiKey }
+    };
+
+    if (body && _.isObject(body)) {
+        options.body = body;
+        options.json = true;
+    }
+
+    request(options, function(error, response, body) {
+        if (!error && response.statusCode == 200) {
+            callback(null, response.body);
+        } else {
+            callback(error, response.body);
         }
-    );
+    });
 }
 
 LoaderIO.prototype.getServers = function(callback) {
@@ -63,15 +68,15 @@ LoaderIO.prototype.getTests = function(callback) {
     this.performApiRequest('/v2/tests', callback);
 }
 
-LoaderIO.prototype.getTestById = function(test_id, callback) {
+LoaderIO.prototype.getTest= function(test_id, callback) {
     this.performApiRequest('/v2/tests/' + test_id, callback);
 }
 
-LoaderIO.prototype.runTestById = function(test_id, callback) {
+LoaderIO.prototype.runTest = function(test_id, callback) {
     this.performApiRequest('/v2/tests/' + test_id + '/run', callback, 'PUT');
 }
 
-LoaderIO.prototype.stopTestById = function(test_id, callback) {
+LoaderIO.prototype.stopTest = function(test_id, callback) {
     this.performApiRequest('/v2/tests/' + test_id + '/stop', callback, 'PUT');
 }
 
@@ -79,8 +84,21 @@ LoaderIO.prototype.getApps = function(callback) {
     this.performApiRequest('/v2/apps', callback);
 }
 
-LoaderIO.prototype.getAppById = function(app_id, callback) {
+LoaderIO.prototype.getApp = function(app_id, callback) {
     this.performApiRequest('/v2/apps/' + app_id, callback);
 }
+
+LoaderIO.prototype.getAllResults = function(test_id, callback) {
+    this.performApiRequest('/v2/tests/' + test_id + '/results', callback);
+}
+
+LoaderIO.prototype.getResults = function(test_id, results_id, callback) {
+    this.performApiRequest('/v2/tests/' + test_id + '/results/' + results_id, callback);
+}
+
+LoaderIO.prototype.createTest = function(test_object, callback) {
+    this.performApiRequest('/v2/tests', callback, 'POST', test_object);
+}
+
 
 module.exports = new LoaderIO();
