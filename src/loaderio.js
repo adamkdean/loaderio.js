@@ -25,7 +25,6 @@
 */
 
 var request = require('request');
-var _ = require('underscore');
 
 function LoaderIO() {
     this.apiUrl = 'https://api.loader.io';
@@ -46,7 +45,7 @@ LoaderIO.prototype.performApiRequest = function(uri, callback, method, body) {
         headers: { 'loaderio-auth': this.apiKey }
     };
 
-    if (body && _.isObject(body)) {
+    if (body && body === Object(body)) {
         options.body = body;
         options.json = true;
     }
