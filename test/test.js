@@ -3,7 +3,7 @@ var loaderio = require('../src/loaderio');
 
 loaderio.setApiKey('');
 
-loaderio.getApps(function(error, response) {
+loaderio.getAppById('', function(error, response) {
     console.log(error, response);
 });
 
