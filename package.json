@@ -5,12 +5,12 @@
   "author": "Adam K Dean",
   "license": "The MIT License",
   "keywords": [
-    "loaderio"
+    "loaderio", "loader", "loader.io"
   ],
   "main": "src/loaderio.js",
   "scripts": {
     "start": "node src/loaderio.js",
-    "test": "node test/test.js"
+    "test": "mocha test/test.js"
   },
   "repository": {
     "type": "git",
