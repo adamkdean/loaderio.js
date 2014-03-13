@@ -80,6 +80,10 @@ LoaderIO.prototype.stopTest = function(test_id, callback) {
     this.performApiRequest('/v2/tests/' + test_id + '/stop', callback, 'PUT');
 }
 
+LoaderIO.prototype.createTest = function(test_object, callback) {
+    this.performApiRequest('/v2/tests', callback, 'POST', test_object);
+}
+
 LoaderIO.prototype.getApps = function(callback) {
     this.performApiRequest('/v2/apps', callback);
 }
@@ -88,16 +92,24 @@ LoaderIO.prototype.getApp = function(app_id, callback) {
     this.performApiRequest('/v2/apps/' + app_id, callback);
 }
 
+LoaderIO.prototype.createApp = function(app_object, callback) {
+    this.performApiRequest('/v2/apps', callback, 'POST', app_object);
+}
+
+LoaderIO.prototype.verifyApp = function(app_id, callback, method) {
+    this.performApiRequest('/v2/apps/' + app_id + '/verify', callback, 'POST', {'method': method || 'http'});
+}
+
+LoaderIO.prototype.deleteApp = function(app_id, callback) {
+    this.performApiRequest('/v2/apps/' + app_id, callback, 'DELETE');
+}
+
 LoaderIO.prototype.getAllResults = function(test_id, callback) {
     this.performApiRequest('/v2/tests/' + test_id + '/results', callback);
 }
 
 LoaderIO.prototype.getResults = function(test_id, results_id, callback) {
     this.performApiRequest('/v2/tests/' + test_id + '/results/' + results_id, callback);
-}
-
-LoaderIO.prototype.createTest = function(test_object, callback) {
-    this.performApiRequest('/v2/tests', callback, 'POST', test_object);
 }
 
 
